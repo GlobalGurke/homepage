@@ -7,6 +7,10 @@ import profile from "~/assets/profile.jpeg";
 import { FaGithub, FaEnvelope, FaLinkedin } from "react-icons/fa6";
 import { ProjectCard } from "~/components/ProjectCard";
 import pvImg from "~/assets/gg_persistent_vehicles_script.jpg"; 
+import mmImg1 from "~/assets/project_img/mensa_manager/pic1.png";
+import mmImg2 from "~/assets/project_img/mensa_manager/pic2.png";
+import mmImg3 from "~/assets/project_img/mensa_manager/pic3.png";
+import mmImg4 from "~/assets/project_img/mensa_manager/pic4.png"
 import { getInstance } from "~/middleware/i18next";
 import { data } from "react-router";
 import { useTranslation } from "react-i18next";
@@ -87,7 +91,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
           <h2 className="text-3xl font-bold mb-6">{t("projects.title")}</h2>
           
           {/* TODO: Replace placeholders with real project components */}
-          <ProjectCard title={t("projects.persistent_vehicles.title")} description={t("projects.persistent_vehicles.description")} tech={["Lua", "Javascript", "SQL", "C#", "phpmyadmin"]} images={[pvImg]}>
+          <ProjectCard title={t("projects.persistent_vehicles.title")} description={t("projects.persistent_vehicles.description")} tech={["Lua", "Javascript", "SQL", "C#", "phpmyadmin", "GitHub"]} images={[pvImg]}>
             <div className="p-5 grid grid-cols-2 gap-6 text-center">
               {/* Revenue */}
               <div className="p-4 bg-gray-300 dark:bg-gray-800 border-black text-black dark:text-white rounded-xl shadow-md hover:shadow-lg transition">
@@ -105,6 +109,12 @@ export default function Home({loaderData}: Route.ComponentProps) {
                 <p className="text-sm mt-1">Customers</p>
               </div>
             </div>
+          </ProjectCard>
+          <ProjectCard title={t("projects.mensa_scraper.title")} description={t("projects.mensa_scraper.description")} tech={["Java", "Json", "GitHub"]} images={[mmImg1, mmImg2, mmImg3, mmImg4]}>
+
+          </ProjectCard>
+          <ProjectCard title={t("projects.porsche_case_study.title")} description={t("projects.porsche_case_study.description")}>
+
           </ProjectCard>
         </section>
 
