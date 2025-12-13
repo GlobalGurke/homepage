@@ -10,7 +10,9 @@ import pvImg from "~/assets/gg_persistent_vehicles_script.jpg";
 import mmImg1 from "~/assets/project_img/mensa_manager/pic1.png";
 import mmImg2 from "~/assets/project_img/mensa_manager/pic2.png";
 import mmImg3 from "~/assets/project_img/mensa_manager/pic3.png";
-import mmImg4 from "~/assets/project_img/mensa_manager/pic4.png"
+import mmImg4 from "~/assets/project_img/mensa_manager/pic4.png";
+import porscheFlyer from "~/assets/project_img/porsche_procurment/flyer.png"
+
 import { getInstance } from "~/middleware/i18next";
 import { data } from "react-router";
 import { useTranslation } from "react-i18next";
@@ -110,16 +112,14 @@ export default function Home({loaderData}: Route.ComponentProps) {
               </div>
             </div>
           </ProjectCard>
+          <ProjectCard title={t("projects.porsche_case_study.title")} description={t("projects.porsche_case_study.description")} tech={["Python DataScience", "Presentation", "Teamwork"]} images={[porscheFlyer]}>
+
+          </ProjectCard>
           <ProjectCard title={t("projects.mensa_scraper.title")} description={t("projects.mensa_scraper.description")} tech={["Java", "Json", "GitHub"]} images={[mmImg1, mmImg2, mmImg3, mmImg4]}>
 
           </ProjectCard>
-          <ProjectCard title={t("projects.porsche_case_study.title")} description={t("projects.porsche_case_study.description")}>
-
-          </ProjectCard>
         </section>
-
       </main>
-
     </div>
   );
 }

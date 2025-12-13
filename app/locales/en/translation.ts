@@ -23,8 +23,11 @@ export default {
             description: "A small project about a Java written Mensa selector. Works with an API to get meal data from Studentenwerk Karlsruhe. With this app you can choose your daily and future meals, and see your nutritions and meal history. "
         },
         porsche_case_study: {
-            title: "Porsche Procurment Case Study",
-            description: "A one week project, were we had to complete 5 tasks about CO2 Emission reduction at Porsche. Furthermore we had to give advice to what Porsche can do about their current CO2 situation, especially in the supply chain. After the 1 week preperation time, we had the opportunity to present our solutions to top management staff at Porsche Procurment (vize president). On Top we had the very interessting experience to listen to inside information at Porsche presented by Porsche's CPO Schwegener. "
+            title: "Porsche Procurement Case Study",
+            description: "As part of a one-week intensive project, we worked on five concrete tasks focused on CO2 emission reduction at Porsche. Beyond analytical work, the project required us to develop actionable recommendations addressing Porsche's current CO2 challanges, with a strong emphasis on the supply chain.",
+            description2: "After the one-week preparation phase, we presented our results and proposal directly to top management within Porsche Procurement, including a Vice President. This setting demanded clear, well structured arguments and realistic, implementable solutions rather than theoretical concepts.",
+            description3: "In addition, the project offered the exceptional opportunity to gain direct insights into Porsche's strategic and operational reality through a presentation by Porsche's Chief Procurment Officier, Joachim Scharnagl. These internal perspectives significantly deepened our understanding of the complexity and trade-offs involved in CO2 reduction within a global automotive supply chain.",
+            description4: "Overall, the project combined analytical rigor, real-world constraints, and direct exposure to executive decision-making at Porsche."
         }
     },
     navbar: {

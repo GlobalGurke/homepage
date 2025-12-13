@@ -11,7 +11,7 @@ export function LanguageSelector() {
         name="lng"
         defaultValue={local}
         onChange={(e) => e.currentTarget.form?.submit()}
-        className="px-2 py-1 border rounded cursor-pointer bg-gray-100 dark:bg-gray-800"
+        className="px-2 py-1 border rounded cursor-pointer bg-gray-100 dark:bg-gray-800 dark:text-white"
       >
         <option value="de">DE</option>
         <option value="en">EN</option>
