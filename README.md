@@ -8,7 +8,7 @@ A modern, production-ready template for building full-stack React applications u
 
 - 🚀 Server-side rendering
 - ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
+- 📦 Asset bundling and optimizationsss
 - 🔄 Data loading and mutations
 - 🔒 TypeScript by default
 - 🎉 TailwindCSS for styling
