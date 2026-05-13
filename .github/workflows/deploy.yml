@@ -54,6 +54,9 @@ jobs:
 
             cd /var/www/html/kevinkraft
 
+            echo "🧹 Removing old wrong PM2 process..."
+            pm2 delete homepage || true
+
             echo "📦 Installing dependencies..."
             npm ci
 
@@ -65,8 +68,23 @@ jobs:
             pm2 start npm --name kevinkraft -- start
             pm2 save
 
-            echo "🩺 Checking app on port 3000..."
-            curl -f http://127.0.0.1:3000 > /dev/null
+            echo "🩺 Waiting for app on port 3000..."
+
+            for i in {1..15}; do
+              if curl -fsS http://127.0.0.1:3000 > /dev/null; then
+                echo "✅ App is responding on port 3000"
+                break
+              fi
+
+              echo "⏳ App not ready yet... attempt $i/15"
+              sleep 2
+
+              if [ "$i" -eq 15 ]; then
+                echo "❌ App did not become ready"
+                pm2 logs kevinkraft --lines 80 --nostream
+                exit 1
+              fi
+            done
 
             echo "🔁 Reloading Apache..."
             systemctl reload apache2
