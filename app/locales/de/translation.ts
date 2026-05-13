@@ -14,8 +14,14 @@ export default {
     projects: {
         title: "Ausgewählte Projekte", 
         persistent_vehicles: {
-            title: "GG Persistent Vehicles", 
+            title: "GG Persistent Vehicles",
+             
             description: "Ein Fahrzeugpersistenz-System für die Modding-Plattform FiveM (GTA5), das es Spielern ermöglicht, ihre Fahrzeuge dauerhaft zu speichern und zu verwalten. Entwickelt mit Fokus auf Leistung, Zuverlässigkeit und Benutzerfreundlichkeit. Mithilfe eines UIs ist die Verwaltung von Fahrzeugen einfach und intuitiv gestaltet. Eine aktuelle version geschrieben in C# ist noch in Entwicklung und zu ca. 90% fertiggestellt.",
+        },
+        gg_computers: {
+            title: "GG Computers", 
+            development: "In Entwicklung",
+            description: "gg_computers ist ein modulares Ingame-Computersystem für FiveM-Server, das realistische digitale Arbeitsabläufe ins Roleplay bringt. Statt nur ein einfaches MDT zu sein, bietet es eine OS-ähnliche Plattform mit Apps wie Benutzerverwaltung, Akten, Dateien, Dokumenten und Einstellungen — gesteuert durch ein starkes rollenbasiertes Berechtigungssystem. Das System richtet sich an ernsthafte RP-Communities, die Netzwerke, Gruppen, Rollen, Berechtigungen und Hierarchien sauber verwalten möchten."
         },
         mensa_scraper: {
             title: "Studentenwerk Mensa Manager", 

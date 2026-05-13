@@ -12,6 +12,10 @@ import mmImg2 from "~/assets/project_img/mensa_manager/pic2.png";
 import mmImg3 from "~/assets/project_img/mensa_manager/pic3.png";
 import mmImg4 from "~/assets/project_img/mensa_manager/pic4.png";
 import porscheFlyer from "~/assets/project_img/porsche_procurment/flyer.png"
+import ggc_main1 from "~/assets/project_img/gg-computers/gg_computers_main1.png";
+import ggc_main2 from "~/assets/project_img/gg-computers/gg_computers_main2.png";
+import ggc_rms1 from "~/assets/project_img/gg-computers/gg_computers_rms1.png";
+import ggc_rms2 from "~/assets/project_img/gg-computers/gg_computers_rms2.png";
 
 import { getInstance } from "~/middleware/i18next";
 import { data } from "react-router";
@@ -111,6 +115,25 @@ export default function Home({loaderData}: Route.ComponentProps) {
                 <p className="text-sm mt-1">Customers</p>
               </div>
             </div>
+          </ProjectCard>
+          <ProjectCard title={t("projects.gg_computers.title")} description={t("projects.gg_computers.description")} tech={["Lua", "Javascript", "SQL", "Typescript", "phpmyadmin", "Git", "RBAC", t("projects.gg_computers.development")]} images={[ggc_main1, ggc_main2, ggc_rms1, ggc_rms2]}>
+            <div className="p-5 grid grid-cols-2 gap-6 text-center">
+              {/* Revenue
+              <div className="p-4 bg-gray-300 dark:bg-gray-800 border-black text-black dark:text-white rounded-xl shadow-md hover:shadow-lg transition">
+                <p className="text-3xl font-bold">
+                <AnimatedCounter value={1500}>€+</AnimatedCounter> 
+                </p>
+                <p className="text-sm mt-1">Revenue</p>
+              </div> */}
+
+              {/* Customers */}
+              {/* <div className="p-4 bg-gray-300 dark:bg-gray-800 border-black text-black dark:text-white rounded-xl shadow-md hover:shadow-lg transition">
+                <p className="text-3xl font-bold">
+                  <AnimatedCounter value={100}>+</AnimatedCounter>
+                </p>
+                <p className="text-sm mt-1">Customers</p>
+              </div>*/}
+            </div> 
           </ProjectCard>
           <ProjectCard title={t("projects.porsche_case_study.title")} description={t("projects.porsche_case_study.description")} tech={["Python DataScience", "Presentation", "Teamwork"]} images={[porscheFlyer]}>
 
