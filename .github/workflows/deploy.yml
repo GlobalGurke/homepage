@@ -1,4 +1,4 @@
-name: Deploy React app
+name: Deploy GG Store
 
 on:
   push:
@@ -13,17 +13,37 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # ---------- Frontend ----------
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: frontend/package-lock.json
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
+        working-directory: frontend
         run: npm ci
 
-      - name: Build project
+      - name: Build frontend
+        working-directory: frontend
         run: npm run build
+
+      # ---------- Backend syntax check ----------
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check backend imports
+        working-directory: backend
+        run: python -m compileall app
 
   deploy:
     needs: test-build
@@ -33,17 +53,42 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Copy project to server
+      - name: Build frontend locally in action
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install and build frontend
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build
+
+      - name: Upload frontend dist
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_IP }}
           username: root
           key: ${{ secrets.SSH_KEY }}
-          source: "."
-          target: "/var/www/html/kevinkraft"
+          source: "frontend/dist/*"
+          target: "/var/www/gg-store/frontend"
+          strip_components: 2
           rm: true
 
-      - name: Install, Build, and Restart on Server
+      - name: Upload backend
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          source: "backend/*"
+          target: "/var/www/gg-store/backend"
+          strip_components: 1
+          rm: true
+
+      - name: Install backend and restart services
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_IP }}
@@ -52,41 +97,34 @@ jobs:
           script: |
             set -e
 
-            cd /var/www/html/kevinkraft
+            echo "📁 Ensuring directories..."
+            mkdir -p /var/www/gg-store/frontend
+            mkdir -p /var/www/gg-store/backend
 
-            echo "🧹 Removing old wrong PM2 process..."
-            pm2 delete homepage || true
+            cd /var/www/gg-store/backend
 
-            echo "📦 Installing dependencies..."
-            npm ci
+            echo "🐍 Creating Python venv..."
+            python3 -m venv .venv
 
-            echo "🏗️ Building project..."
-            npm run build
+            echo "📦 Installing backend dependencies..."
+            .venv/bin/pip install --upgrade pip
+            .venv/bin/pip install -r requirements.txt
 
-            echo "🚀 Restarting PM2..."
-            pm2 delete kevinkraft || true
-            pm2 start npm --name kevinkraft -- start
-            pm2 save
+            echo "⚠️ Checking .env..."
+            if [ ! -f ".env" ]; then
+              echo "❌ Missing backend .env at /var/www/gg-store/backend/.env"
+              echo "Create it manually with Tebex secrets before deploying."
+              exit 1
+            fi
 
-            echo "🩺 Waiting for app on port 3000..."
+            echo "🚀 Restarting FastAPI systemd service..."
+            systemctl restart gg-store
+            systemctl status gg-store --no-pager
 
-            for i in {1..15}; do
-              if curl -fsS http://127.0.0.1:3000 > /dev/null; then
-                echo "✅ App is responding on port 3000"
-                break
-              fi
-
-              echo "⏳ App not ready yet... attempt $i/15"
-              sleep 2
-
-              if [ "$i" -eq 15 ]; then
-                echo "❌ App did not become ready"
-                pm2 logs kevinkraft --lines 80 --nostream
-                exit 1
-              fi
-            done
+            echo "🩺 Checking backend health..."
+            curl -fsS http://127.0.0.1:8000/health
 
             echo "🔁 Reloading Apache..."
             systemctl reload apache2
 
-            echo "✅ Deployment successful"
+            echo "✅ GG Store deployment successful"
