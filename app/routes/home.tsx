@@ -135,7 +135,16 @@ export default function Home({loaderData}: Route.ComponentProps) {
               </div>*/}
             </div> 
           </ProjectCard>
-          <ProjectCard title={t("projects.porsche_case_study.title")} description={t("projects.porsche_case_study.description")} tech={["Python DataScience", "Presentation", "Teamwork"]} images={[porscheFlyer]}>
+          <ProjectCard title={t("projects.porsche_case_study.title")} description={t("projects.porsche_case_study.description")} tech={["Python DataScience", "Presentation", "Teamwork"]} images={[porscheFlyer]}
+            linkedInPosts={[
+              {
+                embedUrl:
+                  "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7426988319022190594?collapsed=1",
+                postUrl:
+                  "https://www.linkedin.com/feed/update/urn:li:ugcPost:7426988319022190594",
+              },
+            ]}
+          >
 
           </ProjectCard>
           <ProjectCard title={t("projects.mensa_scraper.title")} description={t("projects.mensa_scraper.description")} tech={["Java", "Json", "GitHub"]} images={[mmImg1, mmImg2, mmImg3, mmImg4]}>

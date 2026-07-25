@@ -11,6 +11,17 @@ export default {
         languages: "Programmiersprachen & Frameworks", 
         tools: "Tools & Infrastruktur"
     },
+    mediaViewer: {
+        label: "Projektmedien",
+        navigation: "Mediennavigation",
+        previous: "Vorheriges Medium",
+        next: "Nächstes Medium",
+        position: "{{current}} von {{total}}",
+        imageAlt: "Projektbild {{number}}",
+        linkedinPost: "LinkedIn-Beitrag",
+        linkedinTitle: "Eingebetteter LinkedIn-Beitrag",
+        openLinkedIn: "Auf LinkedIn öffnen",
+    },
     projects: {
         title: "Ausgewählte Projekte", 
         persistent_vehicles: {

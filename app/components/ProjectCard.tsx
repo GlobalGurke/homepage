@@ -1,52 +1,75 @@
+import type { ReactNode } from "react";
 import Gallery from "./Gallery";
+import type { LinkedInPost } from "./LinkedInEmbed";
+
 type ProjectCardProps = {
   title: string;
   description: string;
   tech?: string[];
   images?: string[];
+  linkedInPosts?: LinkedInPost[];
   links?: {
     demo?: string;
     github?: string;
   };
-  children?: React.ReactNode; // <-- ADD THIS
+  children?: ReactNode;
 };
-export const ProjectCard = ({ title, description, tech, images, links, children } : ProjectCardProps) => {
-return (
-<div className="bg-gray-200 dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-xl transition duration-200">
-<h3 className="text-xl font-bold mb-2">{title}</h3>
-<p className="text-sm mb-4">{description}</p>
 
+export const ProjectCard = ({
+  title,
+  description,
+  tech,
+  images,
+  linkedInPosts,
+  links,
+  children,
+}: ProjectCardProps) => {
+  const hasMedia = Boolean(images?.length || linkedInPosts?.length);
 
-{/* Tech stack badges */}
-<div className="flex flex-wrap gap-2 mb-4">
-{tech?.map((t, i) => (
-<span key={i} className="px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-800 text-xs border border-gray-700">
-{t}
-</span>
-))}
-</div>
+  return (
+    <div className="rounded-2xl bg-gray-200 p-6 shadow-lg transition duration-200 hover:shadow-xl dark:bg-gray-900">
+      <h3 className="mb-2 text-xl font-bold">{title}</h3>
+      <p className="mb-4 text-sm">{description}</p>
 
+      <div className="mb-4 flex flex-wrap gap-2">
+        {tech?.map((technology) => (
+          <span
+            key={technology}
+            className="rounded-md border border-gray-700 bg-gray-300 px-2 py-1 text-xs dark:bg-gray-800"
+          >
+            {technology}
+          </span>
+        ))}
+      </div>
 
-{/* Image gallery (uses existing Gallery component) */}
-{images && images.length > 0 && (
-<   Gallery images={images} />
-)}
+      {hasMedia && (
+        <Gallery images={images} linkedInPosts={linkedInPosts} />
+      )}
 
+      <div className="mt-4 flex gap-3">
+        {links?.demo && (
+          <a
+            href={links.demo}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-md bg-blue-600 px-3 py-2 text-sm transition hover:bg-blue-700"
+          >
+            Live Demo
+          </a>
+        )}
+        {links?.github && (
+          <a
+            href={links.github}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-md bg-gray-700 px-3 py-2 text-sm transition hover:bg-gray-600"
+          >
+            GitHub
+          </a>
+        )}
+      </div>
 
-{/* Footer with buttons */}
-<div className="flex gap-3 mt-4">
-{links?.demo && (
-<a href={links.demo} target="_blank" className="px-3 py-2 bg-blue-600 rounded-md text-sm hover:bg-blue-700 transition">
-Live Demo
-</a>
-)}
-{links?.github && (
-<a href={links.github} target="_blank" className="px-3 py-2 bg-gray-700 rounded-md text-sm hover:bg-gray-600 transition">
-GitHub
-</a>
-)}
-</div>
-{children}
-</div>
-);
+      {children}
+    </div>
+  );
 };
